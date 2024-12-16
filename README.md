@@ -2,7 +2,7 @@
 
 ## Manually
 
-1. Clone this repository.
+1. Clone this repository. `git clone https://github.com/TendaniN/eighty20.git`
 2. Checkout to the `master` branch. `git checkout master`
 4. Run `nvm use` to make sure you are using the correct supported version of node and npm.
 5. Install dependencies with `npm install` (`npm i` for short)
