@@ -16,43 +16,49 @@ const SignUpPage = () => {
   const navigate = useNavigate();
   const [signupError, setSignupError] = useState<string | null>(null);
   const { signupPending, signedUp, error } = useSelector((state) => state.auth);
-  const { handleBlur, handleChange, handleSubmit, values, errors, dirty } =
-    useFormik({
-      initialValues: {
-        email: "",
-        password: "",
-        confirmPassword: "",
-      },
-      onSubmit: (values) => {
-        dispatch(
-          signupUser({ email: values.email, password: values.password })
-        );
-      },
-      validationSchema: yup.object().shape({
-        email: yup
-          .string()
-          .required("This field is required.")
-          .email("Please enter a valid email address"),
-        password: yup
-          .string()
-          .required("This field is required.")
-          .min(8, "Password is too short - should be 8 characters minimum.")
-          .matches(passwordRules, {
-            message: "Please create a stronger password.",
-          }),
-        confirmPassword: yup
-          .string()
-          .required("This field is required.")
-          .oneOf([yup.ref("password")], "Passwords must match."),
-      }),
-    });
+
+  const {
+    handleBlur,
+    handleChange,
+    handleSubmit,
+    values,
+    errors,
+    touched,
+    dirty,
+  } = useFormik({
+    initialValues: {
+      email: "",
+      password: "",
+      confirmPassword: "",
+    },
+    onSubmit: (values) => {
+      dispatch(signupUser({ email: values.email, password: values.password }));
+    },
+    validationSchema: yup.object().shape({
+      email: yup
+        .string()
+        .required("This field is required.")
+        .email("Please enter a valid email address"),
+      password: yup
+        .string()
+        .required("This field is required.")
+        .min(8, "Password is too short - should be 8 characters minimum.")
+        .matches(passwordRules, {
+          message: "Please create a stronger password.",
+        }),
+      confirmPassword: yup
+        .string()
+        .required("This field is required.")
+        .oneOf([yup.ref("password")], "Passwords must match."),
+    }),
+  });
 
   useEffect(() => {
     if (signedUp) {
       dispatch(updateSetupSteps({ index: 0, complete: true }));
       navigate("/");
     }
-  }, []);
+  }, [signedUp, dispatch]);
 
   useEffect(() => {
     if (error && error === "auth/email-already-in-use") {
@@ -79,7 +85,7 @@ const SignUpPage = () => {
           <input
             id="email"
             className={`block w-full border disabled:cursor-not-allowed disabled:opacity-50 bg-gray-50 text-gray-900 p-2.5 text-sm rounded-lg ${
-              errors.email
+              touched.email && errors.email
                 ? "border-red-300 focus:ring-red-500 focus:border-red-600"
                 : "focus:border-cyan-500 border-gray-300 focus:ring-cyan-500"
             }`}
@@ -90,7 +96,7 @@ const SignUpPage = () => {
             onBlur={handleBlur}
             value={values.email}
           />
-          {errors.email && (
+          {touched.email && errors.email && (
             <span className="text-red-800 text-xs mx-1 flex flex-wrap">
               {errors.email}
             </span>
@@ -110,7 +116,7 @@ const SignUpPage = () => {
             type="password"
             required
             className={`block w-full border disabled:cursor-not-allowed disabled:opacity-50 bg-gray-50 text-gray-900 p-2.5 text-sm rounded-lg ${
-              errors.password
+              touched.password && errors.password
                 ? "border-red-300 focus:ring-red-500 focus:border-red-600"
                 : "focus:border-cyan-500 border-gray-300 focus:ring-cyan-500"
             }`}
@@ -118,7 +124,7 @@ const SignUpPage = () => {
             onBlur={handleBlur}
             value={values.password}
           />
-          {errors.password && (
+          {touched.password && errors.password && (
             <span className="text-red-800 text-xs mx-1 flex flex-wrap">
               {errors.password}
             </span>
@@ -136,7 +142,7 @@ const SignUpPage = () => {
           <input
             id="confirmPassword"
             className={`block w-full border disabled:cursor-not-allowed disabled:opacity-50 bg-gray-50 text-gray-900 p-2.5 text-sm rounded-lg ${
-              errors.confirmPassword
+              touched.confirmPassword && errors.confirmPassword
                 ? "border-red-300 focus:ring-red-500 focus:border-red-600"
                 : "focus:border-cyan-500 border-gray-300 focus:ring-cyan-500"
             }`}
@@ -146,7 +152,7 @@ const SignUpPage = () => {
             onBlur={handleBlur}
             value={values.confirmPassword}
           />
-          {errors.confirmPassword && (
+          {touched.confirmPassword && errors.confirmPassword && (
             <span className="text-red-800 text-xs mx-1 flex flex-wrap">
               {errors.confirmPassword}
             </span>

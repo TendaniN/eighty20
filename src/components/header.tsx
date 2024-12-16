@@ -36,9 +36,6 @@ export const Header = () => {
           <DropdownItem as={Link} to="/profile">
             Profile
           </DropdownItem>
-          <DropdownItem as={Link} to="/password-reset">
-            Password Reset
-          </DropdownItem>
         </Dropdown>
         <Dropdown
           arrowIcon={false}

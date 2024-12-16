@@ -12,7 +12,7 @@ const LogoutPage = () => {
 
   useEffect(() => {
     dispatch(logoutUser());
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
     if (user === null && loggedOut) {

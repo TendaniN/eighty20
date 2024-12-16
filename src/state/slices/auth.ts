@@ -8,8 +8,8 @@ import {
   signInWithEmailAndPassword,
   signOut,
   User,
-  updatePassword,
   updateEmail,
+  sendPasswordResetEmail,
 } from "firebase/auth";
 import { StrictAction } from "state/types";
 
@@ -248,14 +248,15 @@ export function* editUserSaga({ payload }: StrictAction) {
     yield call(updateEmail, payload.user, payload.email);
     yield put(editUserSuccess({ user: payload.user }));
   } catch (error: any) {
-    console.log(error);
     yield put(editUserFailed({ error: error.code }));
   }
 }
 
 export function* resetPaswordSaga({ payload }: StrictAction) {
   try {
-    yield call(updatePassword, payload.user, payload.password);
+    yield call(sendPasswordResetEmail, apiAuth, payload.email, {
+      url: payload.url,
+    });
     yield put(resetPasswordSuccess());
   } catch (error: any) {
     yield put(resetPasswordFailed({ error: error.code }));

@@ -1,7 +1,7 @@
 import { PageTitle } from "components/title";
 import { Button } from "flowbite-react";
 import { useFormik } from "formik";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector } from "state/index";
@@ -12,7 +12,9 @@ import * as yup from "yup";
 const LoginPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { loginPending, user } = useSelector((state) => state.auth);
+  const { loginPending, user, error } = useSelector((state) => state.auth);
+  const [loginError, setLoginError] = useState(null);
+
   const {
     handleBlur,
     handleChange,
@@ -43,7 +45,13 @@ const LoginPage = () => {
       dispatch(updateSetupSteps({ index: 0, complete: true }));
       navigate("/");
     }
-  }, [loginPending, user]);
+  }, [loginPending, user, dispatch]);
+
+  useEffect(() => {
+    if (error === "auth/invalid-credential") {
+      setLoginError("Email/password do not match or account does not exist.");
+    }
+  }, [error]);
 
   return (
     <PageContainer>
@@ -116,6 +124,11 @@ const LoginPage = () => {
         >
           {loginPending ? "Logging in..." : "Login"}
         </Button>
+        {loginError && (
+          <div className="mx-auto flex flex-wrap text-sm text-center text-red-800 font-bold">
+            {loginError}
+          </div>
+        )}
         <div className="mx-auto flex flex-wrap text-sm text-center">
           Do not have an account? Sign up{" "}
           <Link to="/signup" className="text-blue-500 mx-1 hover:underline">

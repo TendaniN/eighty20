@@ -6,7 +6,6 @@ import ProfilePage from "./profile";
 import SignUpPage from "./signup";
 import WelcomePage from "./welcome";
 import LogoutPage from "./logout";
-import PasswordResetPage from "./password-reset";
 
 const Pages = () => {
   const loginPending = useSelector((state) => state.auth.loginPending);
@@ -20,7 +19,6 @@ const Pages = () => {
         <Route path="/signup" element={<SignUpPage />} />
         <Route path="/logout" element={<LogoutPage />} />
         <Route path="/profile" element={<ProfilePage />} />
-        <Route path="/password-reset" element={<PasswordResetPage />} />
         <Route path="*" element={<WelcomePage />} />
       </Routes>
     </div>
