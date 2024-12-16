@@ -30,6 +30,7 @@ src
 ├── api               # API wrapper utility functions.
 ├── assets            # Contains all the static files such as images, pdfs, etc.
 ├── components        # Shared components for the project.
+├── state             # Where all State management is handled.
 ├── pages             # Routes configuration.
 │   └── example
 │       ├── components              # Components used only on the example page
