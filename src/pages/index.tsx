@@ -1,11 +1,14 @@
 import { Route, Routes } from "react-router-dom";
-import LoginPage from "./login";
 import { useSelector } from "state/index";
 import Loader from "components/loader";
-import ProfilePage from "./profile";
-import SignUpPage from "./signup";
-import WelcomePage from "./welcome";
-import LogoutPage from "./logout";
+import { lazyWithRetry } from "utils/lazy-with-retry";
+
+// Lazy loading to separate chunks to decrease main chunks
+const LoginPage = lazyWithRetry(() => import("./login"));
+const ProfilePage = lazyWithRetry(() => import("./profile"));
+const SignUpPage = lazyWithRetry(() => import("./signup"));
+const WelcomePage = lazyWithRetry(() => import("./welcome"));
+const LogoutPage = lazyWithRetry(() => import("./logout"));
 
 const Pages = () => {
   const loginPending = useSelector((state) => state.auth.loginPending);

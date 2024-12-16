@@ -37,6 +37,7 @@ export interface Props {
   auth: State;
 }
 
+/* INITIALISING */
 export const auth: State = {
   user: null,
   loginPending: false,
@@ -66,6 +67,7 @@ export const auth: State = {
   error: null,
 };
 
+/* SLICE WHERE NAMES, ACTIONTYPES & REDUCERS ARE DECLARED */
 export const slice = createSlice({
   name: "auth",
   initialState: auth,
@@ -157,6 +159,7 @@ export const slice = createSlice({
   },
 });
 
+/* EXPORTING ALL ACTIONS */
 export const {
   signupUser,
   signupUserFailed,
@@ -175,8 +178,12 @@ export const {
   resetPasswordSuccess,
   updateSetupSteps,
 } = slice.actions;
+/* EXPORTING ALL REDUCERS */
 export default slice.reducer;
+// If too many actions present can just be exported as:
+// export const { actions, reducer } = slice;
 
+/* SAGA DECLARATIONS - can be in a separate file if too many are present */
 export function* signupUserSaga({ payload }: StrictAction) {
   try {
     const { email, password } = payload;

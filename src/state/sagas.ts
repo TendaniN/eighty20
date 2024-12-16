@@ -1,5 +1,6 @@
 import { takeLatest } from "redux-saga/effects";
 
+/* No need to declare both actionTypes and sagas separately */
 import {
   editUser,
   editUserSaga,
@@ -20,4 +21,6 @@ export default function* rootSaga() {
   yield takeLatest(signupUser.type, signupUserSaga);
   yield takeLatest(editUser.type, editUserSaga);
   yield takeLatest(resetPassword.type, resetPaswordSaga);
+
+  // There is also an option to use takeEvery
 }

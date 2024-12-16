@@ -31,6 +31,7 @@ module.exports = {
           ["api", "./src/api"],
           ["pages", "./src/pages"],
           ["state", "./src/state"],
+          ["utils", "./src/utils"],
         ],
       },
     },
