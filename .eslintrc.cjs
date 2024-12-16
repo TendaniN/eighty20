@@ -28,10 +28,9 @@ module.exports = {
         map: [
           ["assets", "./src/assets"],
           ["components/*", "./src/components"],
-          ["constants", "./src/constants"],
+          ["api", "./src/api"],
           ["pages", "./src/pages"],
-          ["types", "./src/types"],
-          ["utils", "./src/utils"],
+          ["state", "./src/state"],
         ],
       },
     },
