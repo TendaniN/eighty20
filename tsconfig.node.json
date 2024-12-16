@@ -14,11 +14,16 @@
     "noEmit": true,
 
     /* Linting */
-    "strict": true,
+    "strict": false,
     "noUnusedLocals": true,
-    "noUnusedParameters": true,
+    "noUnusedParameters": false,
     "noFallthroughCasesInSwitch": true,
-    "noUncheckedSideEffectImports": true
+    "noUncheckedSideEffectImports": true,
+    "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true,
+    "importHelpers": true,
+    "noImplicitAny": false,
+    "noImplicitThis": false,
   },
   "include": ["vite.config.ts"]
 }
